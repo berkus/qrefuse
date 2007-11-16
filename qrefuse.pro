@@ -17,7 +17,7 @@ SOURCES = src/force/force.cpp \
 	  src/force/forcesimulator.cpp \
 	  src/force/rungekuttaintegrator.cpp
 
-DESTDIR = build
+DESTDIR = lib
 UI_DIR = build/ui
 MOC_DIR = build/moc
 OBJECTS_DIR = build/obj
