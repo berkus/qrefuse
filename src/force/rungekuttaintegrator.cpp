@@ -1,6 +1,7 @@
-#include "rungekuttaintegrator.h"
-#include "forcesimulator.h"
-#include "forceitem.h"
+#include <force/rungekuttaintegrator.h>
+#include <force/forcesimulator.h>
+#include <force/forceitem.h>
+#include <math.h>
 
 namespace qrefuse
 {
@@ -9,7 +10,7 @@ void RungeKuttaIntegrator::integrate(ForceSimulator *sim, long timestep)
 {
 	qreal speedLimit = sim->speedLimit();
 	qreal vx, vy, v, coeff;
-	qreal[][] k, l;
+	QList< QList<qreal> > k, l;
 
 	foreach(ForceItem *item, sim->items())
 	{

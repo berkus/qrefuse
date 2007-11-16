@@ -1,13 +1,13 @@
-#include "forcesimulator.h"
-#include "rungekuttaintegrator.h"
-#include "force.h"
-#include "spring.h"
-#include "forceitem.h"
+#include <force/forcesimulator.h>
+#include <force/rungekuttaintegrator.h>
+#include <force/force.h>
+#include <force/spring.h>
+#include <force/forceitem.h>
 
 namespace qrefuse
 {
 
-ForceSimulator::ForceSimulator(Integrator *intgr = 0)
+ForceSimulator::ForceSimulator(Integrator *intgr)
 	: m_speedLimit(1.0f)
 	, m_integrator(intgr)
 {
@@ -40,42 +40,42 @@ void ForceSimulator::addForce(Force *f)
 	if (f->isItemForce())
 		itemForces.append(f);
 
-	if (f->isSpringForce());
+	if (f->isSpringForce())
 		springForces.append(f);
 }
 
-ForceList ForceSimulator::forces()
+ForceSimulator::ForceList ForceSimulator::forces()
 {
 	return itemForces + springForces;
 }
 
 void ForceSimulator::addItem(ForceItem *i)
 {
-	items.append(i);
+	m_items.append(i);
 }
 
 bool ForceSimulator::removeItem(ForceItem *i)
 {
-	return items.removeAll(i) > 0;
+	return m_items.removeAll(i) > 0;
 }
 
-ItemList::iterator ForceSimulator::items()
+ForceSimulator::ItemList ForceSimulator::items()
 {
-	return items.first();
+	return m_items;
 }
 
 Spring *ForceSimulator::addSpring(ForceItem *item1, ForceItem *item2, float coeff, float length)
 {
 	if (!item1 || !item2)
 		return 0;
-	Spring *s = Spring::factory()->spring(item1, item2, coeff, length);
-	m_springs.add(s);
+	Spring *s = new Spring(item1, item2, coeff, length);
+	m_springs.append(s);
 	return s;
 }
 
-SpringList::iterator ForceSimulator::springs()
+ForceSimulator::SpringList ForceSimulator::springs()
 {
-	return m_springs.first();
+	return m_springs;
 }
 
 void ForceSimulator::run(long timestep)

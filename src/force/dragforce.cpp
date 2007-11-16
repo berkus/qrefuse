@@ -1,5 +1,5 @@
-#include "dragforce.h"
-#include "forceitem.h"
+#include <force/dragforce.h>
+#include <force/forceitem.h>
 
 DragForce::DragForce(qreal dragCoeff)
 {

@@ -2,9 +2,14 @@
 #define QREFUSE_FORCE_H
 
 #include <QList>
+#include <QStringList>
 
 namespace qrefuse
 {
+
+class Spring;
+class ForceItem;
+class ForceSimulator;
 
 class Force
 {
@@ -24,8 +29,8 @@ class Force
 		virtual bool isItemForce() { return false; }
 		virtual bool isSpringForce() { return false; }
 
-		virtual void updateForcesOn(ForceItem *item);
-		virtual void updateForcesOn(Spring *spring);
+		virtual void updateForceOn(ForceItem *item);
+		virtual void updateForceOn(Spring *spring);
 
 	protected:
 		QList<qreal> params;

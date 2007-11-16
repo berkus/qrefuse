@@ -8,6 +8,7 @@ namespace qrefuse
 
 class Integrator;
 class ForceItem;
+class Force;
 class Spring;
 
 /**
@@ -45,12 +46,12 @@ class ForceSimulator
 		bool removeItem(ForceItem *i);
 
 		typedef QList<ForceItem *> ItemList;
-		ItemList::iterator items();
+		ItemList items();
 
     	Spring *addSpring(ForceItem *item1, ForceItem *item2, float coeff = -1.0, float length = -1.0);
 
 		typedef QList<Spring *> SpringList;
-		SpringList::iterator springs();
+		SpringList springs();
 
 		/**
 		 * Run the simulator for one timestep.
@@ -68,8 +69,8 @@ class ForceSimulator
 		SpringList m_springs;
 		ForceList itemForces;
 		ForceList springForces;
-		Integrator *m_integrator;
 		qreal m_speedLimit;
+		Integrator *m_integrator;
 };
 
 }

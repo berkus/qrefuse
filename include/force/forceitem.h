@@ -13,7 +13,7 @@ namespace qrefuse
 class ForceItem
 {
 	public:
-		ForceItem()
+		ForceItem();
 		ForceItem(const ForceItem &other);
 
 		/**

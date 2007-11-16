@@ -1,4 +1,4 @@
-#include "force.h"
+#include <force/force.h>
 
 namespace qrefuse
 {
@@ -58,14 +58,14 @@ void Force::setMaxValueAt(int i, qreal value)
 	maxValues[i] = value;
 }
 
-void Force::updateForcesOn(ForceItem *item)
+void Force::updateForceOn(ForceItem *item)
 {
-	qFatal(__PRETTY_FUNCTION__" is not supported.");
+	qFatal(__PRETTY_FUNCTION__);
 }
 
-void Force::updateForcesOn(Spring *spring)
+void Force::updateForceOn(Spring *spring)
 {
-	qFatal(__PRETTY_FUNCTION__" is not supported.");
+	qFatal(__PRETTY_FUNCTION__);//" is not supported.");
 }
 
 }
