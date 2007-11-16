@@ -8,6 +8,11 @@ void Force::initialize(ForceSimulator *sim)
 	/* Do nothing */
 }
 
+QStringList Force::parameterNames()
+{
+	return paramsNames;
+}
+
 qreal Force::parameterAt(int i)
 {
 	Q_ASSERT( i >= 0 );

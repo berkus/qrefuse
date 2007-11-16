@@ -21,7 +21,7 @@ class Force
 		qreal minValueAt(int i);
 		qreal maxValueAt(int i);
 		QString parameterNameAt(int i);
-		virtual QStringList parameterNames() = 0;
+		QStringList parameterNames();
 		void setParameterAt(int i, qreal value);
 		void setMinValueAt(int i, qreal value);
 		void setMaxValueAt(int i, qreal value);
@@ -36,6 +36,7 @@ class Force
 		QList<qreal> params;
 		QList<qreal> minValues;
 		QList<qreal> maxValues;
+		QStringList paramsNames;
 };
 
 }

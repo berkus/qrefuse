@@ -1,7 +1,17 @@
+#ifndef QREFUSE_DRAGFORCE_H
+#define QREFUSE_DRAGFORCE_H
+
+#include <force/force.h>
+
+namespace qrefuse
+{
+
+class ForceItem;
+
 /**
  * A viscosity/drag force to help stabilize items.
  */
-class DragForce : public AbstractForce
+class DragForce : public Force
 {
 	public:
 		static const qreal DEFAULT_DRAG_COEFF = 0.01f;
@@ -11,9 +21,10 @@ class DragForce : public AbstractForce
 		static const qreal IDX_DRAG_COEFF = 0;
 
 		DragForce(qreal dragCoeff = DEFAULT_DRAG_COEFF);
-
 		virtual bool isItemForce() { return true; }
-
-		virtual QStringList parameterNames();
-		virtual void updateForcesOn(ForceItem &item);
+		virtual void updateForcesOn(ForceItem *item);
 };
+
+}
+
+#endif // QREFUSE_DRAGFORCE_H
