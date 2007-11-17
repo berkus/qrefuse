@@ -9,7 +9,9 @@ namespace qrefuse
 class ForceItem;
 
 /**
- * A viscosity/drag force to help stabilize items.
+ * Implements a viscosity/drag force to help stabilize items.
+ *
+ * @author <a href="http://jheer.org">jeffrey heer</a>
  */
 class DragForce : public Force
 {

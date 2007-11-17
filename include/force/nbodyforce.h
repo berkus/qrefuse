@@ -1,6 +1,8 @@
 #ifndef QREFUSE_NBODYFORCE_H
 #define QREFUSE_NBODYFORCE_H
 
+#include <force/force.h>
+
 namespace qrefuse
 {
 
@@ -23,12 +25,90 @@ namespace qrefuse
  */
 class NBodyForce : public Force
 {
-    /*
-     * The indexing scheme for quadtree child nodes goes row by row.
-     *   0 | 1    0 -> top left,    1 -> top right
-     *  -------
-     *   2 | 3    2 -> bottom left, 3 -> bottom right
-     */
+	public:
+		/*
+		 * The indexing scheme for quadtree child nodes goes row by row.
+		 *   0 | 1    0 -> top left,    1 -> top right
+		 *  -------
+		 *   2 | 3    2 -> bottom left, 3 -> bottom right
+		 */
+
+		static const qreal DEFAULT_GRAV_CONSTANT = -1.0;
+		static const qreal DEFAULT_MIN_GRAV_CONSTANT = -10.0;
+		static const qreal DEFAULT_MAX_GRAV_CONSTANT = 10.0;
+
+		static const qreal DEFAULT_DISTANCE = -1.0;
+		static const qreal DEFAULT_MIN_DISTANCE = -1.0;
+		static const qreal DEFAULT_MAX_DISTANCE = 500.0;
+
+		static const qreal DEFAULT_THETA = 0.9;
+		static const qreal DEFAULT_MIN_THETA = 0.0;
+		static const qreal DEFAULT_MAX_THETA = 1.0;
+
+		static const int IDX_GRAVITATIONAL_CONST = 0;
+		static const int IDX_MIN_DISTANCE = 1;
+		static const int IDX_BARNES_HUT_THETA = 2;
+
+		/**
+		 * Create a new NBodyForce.
+		 * @param gravConstant the gravitational constant to use. Nodes will
+		 * attract each other if this value is positive, and will repel each
+		 * other if it is negative.
+		 * @param minDistance the distance within which two particles will
+		 * interact. If -1, the value is treated as infinite.
+		 * @param theta the Barnes-Hut parameter theta, which controls when
+		 * an aggregated mass is used rather than drilling down to individual
+		 * item mass values.
+		 */
+		NBodyForce(qreal gravConstant = DEFAULT_GRAV_CONSTANT, qreal minDistance = DEFAULT_DISTANCE, qreal theta = DEFAULT_THETA);
+
+		virtual bool isItemForce() { return true; }
+
+		/**
+		 * Clears the quadtree of all entries.
+		 */
+		void clear();
+
+		void initialize(ForceSimulator *sim);
+
+		/**
+		 * Inserts an item into the quadtree.
+		 * @param item the ForceItem to add.
+		 * @throws IllegalStateException if the current location of the item is
+		 *  outside the bounds of the quadtree
+		 */
+		void insert(ForceItem *item);
+
+		virtual void updateForceOn(ForceItem *item);
+
+	private:
+		class QuadTreeNode
+		{
+			public:
+				QuadTreeNode()
+				{
+					com << 0.0 << 0.0;
+					hasChildren = false;
+					children << 0 << 0 << 0 << 0;
+				}
+
+				bool hasChildren;
+				qreal mass; // total mass held by this node
+				QList<qreal> com; // center of mass of this node
+				ForceItem *value; // ForceItem in this node, null if node has children
+				QList<QuadTreeNode *> children; // children nodes
+		};
+
+		void setBounds(qreal xMin, qreal yMin, qreal xMax, qreal yMax);
+		void clearHelper(QuadTreeNode *n);
+		static bool isSameLocation(ForceItem *f1, ForceItem *f2);
+		void insert(ForceItem *p, QuadTreeNode *n, qreal x1, qreal y1, qreal x2, qreal y2);
+		void insertHelper(ForceItem *p, QuadTreeNode *n, qreal x1, qreal y1, qreal x2, qreal y2);
+		void calcMass(QuadTreeNode *n);
+		void forceHelper(ForceItem *item, QuadTreeNode *n, qreal x1, qreal y1, qreal x2, qreal y2);
+
+		qreal xMin, xMax, yMin, yMax;
+		QuadTreeNode *root;
 };
 
 }
