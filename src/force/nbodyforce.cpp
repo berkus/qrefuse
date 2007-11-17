@@ -7,14 +7,28 @@
 namespace qrefuse
 {
 
+const qreal NBodyForce::DEFAULT_GRAV_CONSTANT/* = -1.0*/;
+const qreal NBodyForce::DEFAULT_MIN_GRAV_CONSTANT/* = -10.0*/;
+const qreal NBodyForce::DEFAULT_MAX_GRAV_CONSTANT/* = 10.0*/;
+
+const qreal NBodyForce::DEFAULT_DISTANCE/* = -1.0*/;
+const qreal NBodyForce::DEFAULT_MIN_DISTANCE/* = -1.0*/;
+const qreal NBodyForce::DEFAULT_MAX_DISTANCE/* = 500.0*/;
+
+const qreal NBodyForce::DEFAULT_THETA/* = 0.9*/;
+const qreal NBodyForce::DEFAULT_MIN_THETA/* = 0.0*/;
+const qreal NBodyForce::DEFAULT_MAX_THETA/* = 1.0*/;
+
 NBodyForce::NBodyForce(qreal gravConstant, qreal minDistance, qreal theta)
-	: root(0)
 {
 	params << gravConstant << minDistance << theta;
 	minValues << DEFAULT_MIN_GRAV_CONSTANT << DEFAULT_MIN_DISTANCE << DEFAULT_MIN_THETA;
 	maxValues << DEFAULT_MAX_GRAV_CONSTANT << DEFAULT_MAX_DISTANCE << DEFAULT_MAX_THETA;
     paramsNames << "GravitationalConstant" << "Distance" << "BarnesHutTheta";
+	root = new QuadTreeNode;
 }
+
+bool NBodyForce::isItemForce() { return true; }
 
 void NBodyForce::setBounds(qreal xMin, qreal yMin, qreal xMax, qreal yMax)
 {

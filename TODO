@@ -1,1 +1,2 @@
 * Add pkg-config .pc file.
+* Replace custom Forces' configurable properties with QProperty()

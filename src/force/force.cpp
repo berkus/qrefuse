@@ -8,6 +8,9 @@ void Force::initialize(ForceSimulator *sim)
 	/* Do nothing */
 }
 
+bool Force::isItemForce() { return false; }
+bool Force::isSpringForce() { return false; }
+
 QStringList Force::parameterNames()
 {
 	return paramsNames;

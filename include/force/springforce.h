@@ -22,8 +22,10 @@ class SpringForce : public Force
 		static const qreal DEFAULT_MIN_SPRING_LENGTH = 0;
 		static const qreal DEFAULT_MAX_SPRING_LENGTH = 200;
 
-		static const int IDX_SPRING_COEFF = 0;
-		static const int IDX_SPRING_LENGTH = 1;
+		enum {
+			IDX_SPRING_COEFF = 0,
+			IDX_SPRING_LENGTH = 1
+		};
 
 		/**
 		 * Create a new SpringForce.
@@ -33,7 +35,7 @@ class SpringForce : public Force
 		 * be used if the spring's own length is less than zero.
 		 */
 		SpringForce(qreal springCoeff = DEFAULT_SPRING_COEFF, qreal defaultLength = DEFAULT_SPRING_LENGTH);
-		virtual bool isSpringForce() { return true; }
+		virtual bool isSpringForce();
 		virtual void updateForceOn(Spring *spring);
 };
 

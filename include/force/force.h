@@ -26,8 +26,8 @@ class Force
 		void setMinValueAt(int i, qreal value);
 		void setMaxValueAt(int i, qreal value);
 
-		virtual bool isItemForce() { return false; }
-		virtual bool isSpringForce() { return false; }
+		virtual bool isItemForce();
+		virtual bool isSpringForce();
 
 		virtual void updateForceOn(ForceItem *item);
 		virtual void updateForceOn(Spring *spring);

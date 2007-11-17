@@ -6,6 +6,13 @@
 namespace qrefuse
 {
 
+const qreal SpringForce::DEFAULT_SPRING_COEFF/* = 1E-4f*/;
+const qreal SpringForce::DEFAULT_MAX_SPRING_COEFF/* = 1E-3f*/;
+const qreal SpringForce::DEFAULT_MIN_SPRING_COEFF/* = 1E-5f*/;
+const qreal SpringForce::DEFAULT_SPRING_LENGTH/* = 50*/;
+const qreal SpringForce::DEFAULT_MIN_SPRING_LENGTH/* = 0*/;
+const qreal SpringForce::DEFAULT_MAX_SPRING_LENGTH/* = 200*/;
+
 SpringForce::SpringForce(qreal springCoeff, qreal defaultLength)
 {
 	params << springCoeff << defaultLength;
@@ -13,6 +20,8 @@ SpringForce::SpringForce(qreal springCoeff, qreal defaultLength)
 	maxValues << DEFAULT_MAX_SPRING_COEFF << DEFAULT_MAX_SPRING_LENGTH;
 	paramsNames << "SpringCoefficient" << "DefaultSpringLength";
 }
+
+bool SpringForce::isSpringForce() { return true; }
 
 void SpringForce::updateForceOn(Spring *s)
 {

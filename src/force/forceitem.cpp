@@ -12,9 +12,9 @@ ForceItem::ForceItem()
 	location << 0.0 << 0.0;
 	prevLocation << 0.0 << 0.0;
 	QList<qreal> init;
-	init << 0.0 << 0.0 << 0.0 << 0.0;
-	k << init << init;
-	l << init << init;
+	init << 0.0 << 0.0;
+	k << init << init << init << init;
+	l << init << init << init << init;
 }
 
 ForceItem::ForceItem(const ForceItem &other)

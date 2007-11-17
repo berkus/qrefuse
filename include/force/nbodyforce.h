@@ -45,9 +45,11 @@ class NBodyForce : public Force
 		static const qreal DEFAULT_MIN_THETA = 0.0;
 		static const qreal DEFAULT_MAX_THETA = 1.0;
 
-		static const int IDX_GRAVITATIONAL_CONST = 0;
-		static const int IDX_MIN_DISTANCE = 1;
-		static const int IDX_BARNES_HUT_THETA = 2;
+		enum {
+			IDX_GRAVITATIONAL_CONST = 0,
+			IDX_MIN_DISTANCE = 1,
+			IDX_BARNES_HUT_THETA = 2
+		};
 
 		/**
 		 * Create a new NBodyForce.
@@ -62,7 +64,7 @@ class NBodyForce : public Force
 		 */
 		NBodyForce(qreal gravConstant = DEFAULT_GRAV_CONSTANT, qreal minDistance = DEFAULT_DISTANCE, qreal theta = DEFAULT_THETA);
 
-		virtual bool isItemForce() { return true; }
+		virtual bool isItemForce();
 
 		/**
 		 * Clears the quadtree of all entries.
@@ -87,8 +89,10 @@ class NBodyForce : public Force
 			public:
 				QuadTreeNode()
 				{
-					com << 0.0 << 0.0;
 					hasChildren = false;
+					mass = 0.0;
+					com << 0.0 << 0.0;
+					value = 0;
 					children << 0 << 0 << 0 << 0;
 				}
 

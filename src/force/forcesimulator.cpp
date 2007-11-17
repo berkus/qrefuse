@@ -4,6 +4,8 @@
 #include <force/spring.h>
 #include <force/forceitem.h>
 
+#include <QtDebug>
+
 namespace qrefuse
 {
 
@@ -38,10 +40,16 @@ Integrator *ForceSimulator::integrator()
 void ForceSimulator::addForce(Force *f)
 {
 	if (f->isItemForce())
+	{
+		qDebug("Adding item force %p", f);
 		itemForces.append(f);
+	}
 
 	if (f->isSpringForce())
+	{
+		qDebug("Adding spring force %p", f);
 		springForces.append(f);
+	}
 }
 
 ForceSimulator::ForceList ForceSimulator::forces()
