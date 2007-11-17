@@ -3,6 +3,7 @@
 #include <force/forceitem.h>
 #include <limits>
 #include <math.h>
+#include <QtDebug>
 
 namespace qrefuse
 {
@@ -54,6 +55,7 @@ void NBodyForce::clearHelper(QuadTreeNode *n)
 
 void NBodyForce::initialize(ForceSimulator *sim)
 {
+// 	qDebug() << "Initializing NBodyForce";
 	clear(); // clear internal state
 
 	// compute and squarify bounds of quadtree
@@ -81,6 +83,7 @@ void NBodyForce::initialize(ForceSimulator *sim)
 
 	// calculate magnitudes and centers of mass
 	calcMass(root);
+// 	qDebug() << "Done initializing NBodyForce";
 }
 
 void NBodyForce::insert(ForceItem *item)
@@ -91,6 +94,7 @@ void NBodyForce::insert(ForceItem *item)
 
 void NBodyForce::insert(ForceItem *p, QuadTreeNode *n, qreal x1, qreal y1, qreal x2, qreal y2)
 {
+// 	qDebug("Inserting particle at %f,%f-%f,%f", x1,y1, x2,y2);
 	// try to insert particle p at node n in the quadtree.
 	// by construction, each leaf will contain either 1 or 0 particles
 	if (n->hasChildren)
@@ -128,6 +132,7 @@ bool NBodyForce::isSameLocation(ForceItem *f1, ForceItem *f2)
 
 void NBodyForce::insertHelper(ForceItem *p, QuadTreeNode *n, qreal x1, qreal y1, qreal x2, qreal y2)
 {
+//	qDebug("Recursively inserting particle at %f,%f-%f,%f", x1,y1, x2,y2);
 	qreal x = p->location[0], y = p->location[1];
 	qreal splitx = (x1+x2)/2;
 	qreal splity = (y1+y2)/2;
@@ -166,10 +171,12 @@ void NBodyForce::calcMass(QuadTreeNode *n)
 	}
 	n->com[0] = xcom / n->mass;
 	n->com[1] = ycom / n->mass;
+// 	qDebug("calcMass: final node mass %f", n->mass);
 }
 
 void NBodyForce::updateForceOn(ForceItem *item)
 {
+// 	qDebug(__PRETTY_FUNCTION__);
 	forceHelper(item,root,xMin,yMin,xMax,yMax);
 }
 

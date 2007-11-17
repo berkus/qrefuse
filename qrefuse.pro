@@ -3,7 +3,7 @@ TARGET = qrefuse
 VERSION = 0.1.1
 
 QT = core
-CONFIG -= debug
+CONFIG += debug
 
 INCLUDEPATH += ./include
 

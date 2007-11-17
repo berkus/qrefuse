@@ -14,7 +14,7 @@ class ForceSimulator;
 class Force
 {
 	public:
-		void initialize(ForceSimulator *sim);
+		virtual void initialize(ForceSimulator *sim);
 
 		int parametersCount() { return params.size(); }
 		qreal parameterAt(int i);

@@ -2,6 +2,7 @@
 #include <force/forceitem.h>
 #include <force/spring.h>
 #include <math.h>
+#include <QtDebug>
 
 namespace qrefuse
 {
@@ -44,10 +45,13 @@ void SpringForce::updateForceOn(Spring *s)
 	}
 	qreal d  = r-length;
 	qreal coeff = (s->coeff < 0 ? params[IDX_SPRING_COEFF] : s->coeff)*d/r;
+// 	qDebug("Spring updating item forces: coeff %f, dx %f, dy %f", coeff, dx, dy);
+// 	qDebug("before %f,%f / %f,%f", item1->force[0], item1->force[1], item2->force[0], item2->force[1]);
 	item1->force[0] += coeff * dx;
 	item1->force[1] += coeff * dy;
 	item2->force[0] += -coeff * dx;
 	item2->force[1] += -coeff * dy;
+// 	qDebug("after  %f,%f / %f,%f", item1->force[0], item1->force[1], item2->force[0], item2->force[1]);
 }
 
 }
